@@ -137,6 +137,18 @@ textarea {
   border-radius: var(--radius-sm);
 }
 
+/* ---------- SKIP LINK ---------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+}
+
+.skip-link:focus {
+  left: var(--space-4);
+  top: var(--space-4);
+}
+
 /* ---------- NAVBAR ---------- */
 .navbar {
   display: flex;
@@ -448,9 +460,9 @@ textarea {
 /* ---------- ITEMS GRID ---------- */
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-5);
-  align-items: stretch;
+  align-items: start;
 }
 
 .item-card {
@@ -463,6 +475,7 @@ textarea {
   position: relative;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   height: 100%;
 }
 
