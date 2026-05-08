@@ -120,6 +120,8 @@ button {
   cursor: pointer;
   background: none;
   border: none;
+  /* FIX 4: impede qualquer button de crescer verticalmente por stretch */
+  align-self: flex-start;
 }
 
 a,
@@ -187,6 +189,7 @@ textarea {
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
   position: relative;
+  align-self: auto;
 }
 
 .btn-icon:hover {
@@ -222,6 +225,7 @@ textarea {
   font-size: var(--text-sm);
   font-weight: 600;
   box-shadow: var(--shadow-sm);
+  align-self: auto;
 }
 
 .btn-primary:hover {
@@ -245,6 +249,7 @@ textarea {
   font-size: var(--text-sm);
   font-weight: 600;
   border: 1px solid var(--color-border);
+  align-self: auto;
 }
 
 .btn-secondary:hover {
@@ -417,6 +422,7 @@ textarea {
   background: var(--color-bg);
   color: var(--color-text-muted);
   white-space: nowrap;
+  align-self: auto;
 }
 
 .filter-chip:hover {
@@ -453,6 +459,7 @@ textarea {
   align-items: start;
 }
 
+/* FIX 5: substituído height:100% por flex no grid para alinhar sem esticar */
 .item-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -464,7 +471,6 @@ textarea {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  height: 100%;
 }
 
 .item-card:hover {
@@ -482,6 +488,7 @@ textarea {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .item-img-wrap img {
@@ -554,6 +561,7 @@ textarea {
   flex: 1;
 }
 
+/* FIX 1: align-items:center garante que preço e botão ficam no mesmo eixo horizontal */
 .item-footer {
   display: flex;
   align-items: center;
@@ -561,6 +569,7 @@ textarea {
   margin-top: var(--space-3);
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-divider);
+  flex-shrink: 0;
 }
 
 .item-price {
@@ -568,16 +577,21 @@ textarea {
   font-size: var(--text-xl);
   font-weight: 700;
   color: var(--color-primary);
+  line-height: 1;
 }
 
+/* FIX 2: align-items:center impede o stretch vertical nos botões filhos */
 .item-actions {
   display: flex;
+  align-items: center;
   gap: var(--space-1);
 }
 
+/* FIX 3: altura fixa e align-self:center para o botão não crescer */
 .btn-add-cart {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
   background: var(--color-accent);
   color: white;
@@ -585,6 +599,9 @@ textarea {
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   font-weight: 600;
+  height: 34px;
+  align-self: center;
+  white-space: nowrap;
 }
 
 .btn-add-cart:hover {
@@ -607,6 +624,8 @@ textarea {
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
   background: var(--color-surface-offset);
+  align-self: center;
+  flex-shrink: 0;
 }
 
 .btn-edit:hover {
@@ -703,6 +722,8 @@ textarea {
   border-radius: var(--radius-full);
   color: var(--color-text-muted);
   background: var(--color-surface-offset);
+  align-self: auto;
+  flex-shrink: 0;
 }
 
 .btn-close:hover {
@@ -754,6 +775,7 @@ textarea {
 
 .form-actions {
   display: flex;
+  align-items: center;
   gap: var(--space-3);
   margin-top: var(--space-5);
 }
@@ -762,11 +784,13 @@ textarea {
   flex: 1;
   justify-content: center;
   padding: var(--space-3);
+  align-self: auto;
 }
 
 .form-actions .btn-secondary {
   justify-content: center;
   padding: var(--space-3) var(--space-4);
+  align-self: auto;
 }
 
 /* ---------- MODAL DE CUSTOMIZAÇÃO ---------- */
@@ -820,6 +844,8 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
 }
 
 .adicional-btn:hover {
@@ -839,8 +865,8 @@ textarea {
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-divider);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .cart-total strong {
@@ -932,6 +958,8 @@ textarea {
   background: var(--color-surface-dynamic);
   color: var(--color-text-faint);
   margin-bottom: var(--space-2);
+  align-self: auto;
+  flex-shrink: 0;
 }
 
 .step-icon.active {
@@ -1014,6 +1042,7 @@ textarea {
 
 .order-actions {
   display: flex;
+  align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-3);
   flex-wrap: wrap;
