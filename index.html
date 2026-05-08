@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar do Gringo — Cardápio Digital</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#c0392b">
+  <meta name="description" content="Cardápio digital do Bar do Gringo. Lanches, churrasco, porções e bebidas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link btn-primary">Pular para conteúdo</a>
+
+  <header class="navbar" role="banner">
+    <div class="nav-brand">
+      <div class="logo-text">Bar do Gringo</div>
+      <div class="logo-sub">Cardápio Digital</div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="btn-tracking" aria-label="Rastrear pedido">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </button>
+      <button class="btn-icon" data-theme-toggle aria-label="Alternar tema"></button>
+      <button class="btn-icon" id="btn-cart" aria-label="Carrinho">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero" role="banner" aria-label="Banner principal">
+    <div class="hero-left">
+      <div class="hero-logo">
+        <img src="imagens/logo.png" alt="Bar do Gringo" onerror="this.style.display='none'">
+      </div>
+      <div class="hero-content">
+        <span class="hero-badge">🔴 Aberto — Ter a Dom</span>
+        <h1>Lanches &amp; Churrasco<br>de Verdade</h1>
+        <p>Peça agora.</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-support-img" src="imagens/hero.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
+    </div>
+  </section>
+
+  <main id="main" class="main-content">
+    <div class="toolbar" role="search" aria-label="Filtrar cardápio">
+      <div class="search-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="search-input" id="search-input" type="search" placeholder="Buscar no cardápio..." aria-label="Buscar itens">
+      </div>
+      <div class="filter-chips" role="group" aria-label="Filtrar por categoria">
+        <button class="filter-chip active" data-filter="todos">Todos</button>
+        <button class="filter-chip" data-filter="lanche">Lanches</button>
+        <button class="filter-chip" data-filter="churrasco">Churrasco</button>
+        <button class="filter-chip" data-filter="porcao">Porções</button>
+        <button class="filter-chip" data-filter="bebida">Bebidas</button>
+      </div>
+      <div class="toolbar-right">
+        <span class="results-count" id="results-count" aria-live="polite">17 items</span>
+      </div>
+    </div>
+
+    <div class="items-grid" id="items-grid" role="list" aria-label="Itens do cardápio"></div>
+  </main>
+
+  <!-- MODAL CUSTOMIZAR -->
+  <div class="modal-overlay" id="modal-customize" role="dialog" aria-modal="true" aria-labelledby="customize-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="customize-title">Customizar Item</h2>
+        <button class="btn-close" id="btn-customize-close" aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="customize-body"></div>
+      <div class="cart-footer">
+        <div class="cart-total">Total: <strong id="customize-total">R$ 0,00</strong></div>
+        <button class="btn-primary" id="btn-confirm-customize">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CARRINHO -->
+  <div class="modal-overlay" id="modal-cart" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="cart-title">Seu Carrinho</h2>
+        <button class="btn-close" id="btn-cart-close" aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="cart-body"><p style="text-align:center;color:var(--color-text-muted);padding:var(--space-8)">Seu carrinho está vazio 🛒</p></div>
+      <div class="cart-footer">
+        <div class="cart-total">Total: <strong id="cart-total-val">R$ 0,00</strong></div>
+        <button class="btn-primary" id="btn-checkout">Finalizar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PEDIDO -->
+  <div class="modal-overlay" id="modal-order" role="dialog" aria-modal="true" aria-labelledby="order-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="order-title">Finalizar Pedido</h2>
+        <button class="btn-close" id="btn-order-close" aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p style="margin-bottom:var(--space-4);color:var(--color-text-muted)">Pedido <strong id="order-number-display">#0000</strong> — Total: <strong id="order-total-val">R$ 0,00</strong></p>
+      <form id="order-form">
+        <div class="form-group">
+          <label class="form-label" for="order-nome">Seu nome *</label>
+          <input class="form-input" id="order-nome" type="text" required placeholder="Nome completo">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="order-endereco">Endereço de entrega *</label>
+          <input class="form-input" id="order-endereco" type="text" required placeholder="Rua, número, bairro">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="order-whatsapp">WhatsApp *</label>
+            <input class="form-input" id="order-whatsapp" type="tel" required placeholder="(51) 99999-9999">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="order-pagamento">Pagamento *</label>
+            <select class="form-select" id="order-pagamento" required>
+              <option value="">Selecione...</option>
+              <option value="PIX">PIX</option>
+              <option value="Cartão">Cartão</option>
+              <option value="Dinheiro">Dinheiro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="order-troco">Precisa de troco para quanto?</label>
+          <input class="form-input" id="order-troco" type="text" placeholder="Ex: R$ 50,00">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Enviar Pedido</button>
+          <button type="button" class="btn-secondary" id="btn-cancel-order">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL ITEM (ADMIN) -->
+  <div class="modal-overlay" id="modal-item" role="dialog" aria-modal="true" aria-labelledby="modal-item-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-item-title">Novo Item</h2>
+        <button class="btn-close" id="btn-item-close" aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="item-form">
+        <div class="form-group">
+          <label class="form-label" for="form-nome">Nome do item *</label>
+          <input class="form-input" id="form-nome" type="text" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-categoria">Categoria *</label>
+            <select class="form-select" id="form-categoria" required>
+              <option value="">Selecionar...</option>
+              <option value="lanche">Lanche</option>
+              <option value="churrasco">Churrasco</option>
+              <option value="porcao">Porção</option>
+              <option value="bebida">Bebida</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-preco">Preço (R$) *</label>
+            <input class="form-input" id="form-preco" type="number" step="0.01" min="0" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="form-desc">Descrição</label>
+          <textarea class="form-textarea" id="form-desc" placeholder="Ingredientes ou descrição do item..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="form-imagem">Foto do item</label>
+          <input class="form-input" id="form-imagem" type="text" placeholder="nome-da-imagem.jpg">
+          <small style="color:var(--color-text-muted);font-size:var(--text-xs)">Coloque a imagem na pasta imagens/</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="form-disponivel">Disponibilidade</label>
+          <select class="form-select" id="form-disponivel">
+            <option value="1">Disponível</option>
+            <option value="0">Indisponível</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Salvar</button>
+          <button type="button" class="btn-secondary" id="btn-cancel-item">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="admin-panel" style="display:none"></div>
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
+  <footer class="site-footer">
+    <p>© 2025 Bar do Gringo — Todos os direitos reservados</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
