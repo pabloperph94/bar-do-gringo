@@ -2,7 +2,6 @@
    BAR DO GRINGO — style.css
    ============================================================ */
 
-/* ---------- TOKENS ---------- */
 :root,
 [data-theme="light"] {
   --color-bg: #f5f0e8;
@@ -41,7 +40,6 @@
   --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
-  --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -79,7 +77,6 @@
   --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
 }
 
-/* ---------- RESET ---------- */
 *,
 *::before,
 *::after {
@@ -120,8 +117,6 @@ button {
   cursor: pointer;
   background: none;
   border: none;
-  /* FIX 4: impede qualquer button de crescer verticalmente por stretch */
-  align-self: flex-start;
 }
 
 a,
@@ -139,7 +134,6 @@ textarea {
   border-radius: var(--radius-sm);
 }
 
-/* ---------- NAVBAR ---------- */
 .navbar {
   display: flex;
   justify-content: center;
@@ -189,7 +183,6 @@ textarea {
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
   position: relative;
-  align-self: auto;
 }
 
 .btn-icon:hover {
@@ -217,6 +210,7 @@ textarea {
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
   background: var(--color-primary);
   color: white;
@@ -225,7 +219,6 @@ textarea {
   font-size: var(--text-sm);
   font-weight: 600;
   box-shadow: var(--shadow-sm);
-  align-self: auto;
 }
 
 .btn-primary:hover {
@@ -241,6 +234,7 @@ textarea {
 .btn-secondary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
   background: var(--color-surface-offset);
   color: var(--color-text);
@@ -249,14 +243,12 @@ textarea {
   font-size: var(--text-sm);
   font-weight: 600;
   border: 1px solid var(--color-border);
-  align-self: auto;
 }
 
 .btn-secondary:hover {
   background: var(--color-surface-dynamic);
 }
 
-/* ---------- HERO ---------- */
 .hero {
   display: flex;
   align-items: center;
@@ -308,7 +300,6 @@ textarea {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-left: 0;
 }
 
 .hero h1 {
@@ -349,14 +340,12 @@ textarea {
   transform: translateY(1px);
 }
 
-/* ---------- MAIN ---------- */
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--space-8) var(--space-4);
 }
 
-/* ---------- TOOLBAR ---------- */
 .toolbar {
   display: flex;
   align-items: center;
@@ -422,7 +411,6 @@ textarea {
   background: var(--color-bg);
   color: var(--color-text-muted);
   white-space: nowrap;
-  align-self: auto;
 }
 
 .filter-chip:hover {
@@ -451,15 +439,16 @@ textarea {
   white-space: nowrap;
 }
 
-/* ---------- ITEMS GRID ---------- */
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-5);
   align-items: start;
 }
 
-/* FIX 5: substituído height:100% por flex no grid para alinhar sem esticar */
 .item-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -561,11 +550,11 @@ textarea {
   flex: 1;
 }
 
-/* FIX 1: align-items:center garante que preço e botão ficam no mesmo eixo horizontal */
 .item-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-3);
   margin-top: var(--space-3);
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-divider);
@@ -580,14 +569,15 @@ textarea {
   line-height: 1;
 }
 
-/* FIX 2: align-items:center impede o stretch vertical nos botões filhos */
 .item-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-1);
+  flex-shrink: 0;
+  align-self: center;
 }
 
-/* FIX 3: altura fixa e align-self:center para o botão não crescer */
 .btn-add-cart {
   display: inline-flex;
   align-items: center;
@@ -600,8 +590,10 @@ textarea {
   font-size: var(--text-sm);
   font-weight: 600;
   height: 34px;
-  align-self: center;
+  line-height: 1;
   white-space: nowrap;
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .btn-add-cart:hover {
@@ -624,8 +616,8 @@ textarea {
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
   background: var(--color-surface-offset);
-  align-self: center;
   flex-shrink: 0;
+  align-self: center;
 }
 
 .btn-edit:hover {
@@ -638,7 +630,6 @@ textarea {
   color: var(--color-primary);
 }
 
-/* ---------- EMPTY STATE ---------- */
 .empty-state {
   grid-column: 1 / -1;
   display: flex;
@@ -661,7 +652,6 @@ textarea {
   font-size: var(--text-sm);
 }
 
-/* ---------- MODAL ---------- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -722,7 +712,6 @@ textarea {
   border-radius: var(--radius-full);
   color: var(--color-text-muted);
   background: var(--color-surface-offset);
-  align-self: auto;
   flex-shrink: 0;
 }
 
@@ -782,18 +771,13 @@ textarea {
 
 .form-actions .btn-primary {
   flex: 1;
-  justify-content: center;
   padding: var(--space-3);
-  align-self: auto;
 }
 
 .form-actions .btn-secondary {
-  justify-content: center;
   padding: var(--space-3) var(--space-4);
-  align-self: auto;
 }
 
-/* ---------- MODAL DE CUSTOMIZAÇÃO ---------- */
 .adicionais-section {
   margin-bottom: var(--space-4);
 }
@@ -844,7 +828,6 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: center;
   flex-shrink: 0;
 }
 
@@ -859,7 +842,6 @@ textarea {
   font-size: var(--text-sm);
 }
 
-/* ---------- CARRINHO ---------- */
 .cart-footer {
   margin-top: var(--space-4);
   padding-top: var(--space-4);
@@ -875,7 +857,6 @@ textarea {
   color: var(--color-primary);
 }
 
-/* ---------- TOAST ---------- */
 .toast-container {
   position: fixed;
   bottom: var(--space-4);
@@ -902,7 +883,6 @@ textarea {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ---------- FOOTER ---------- */
 .site-footer {
   border-top: 1px solid var(--color-divider);
   padding: var(--space-8) var(--space-4);
@@ -911,7 +891,6 @@ textarea {
   font-size: var(--text-xs);
 }
 
-/* ---------- TRACKING ---------- */
 .tracking-panel {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -958,7 +937,6 @@ textarea {
   background: var(--color-surface-dynamic);
   color: var(--color-text-faint);
   margin-bottom: var(--space-2);
-  align-self: auto;
   flex-shrink: 0;
 }
 
@@ -983,7 +961,6 @@ textarea {
   color: var(--color-primary);
 }
 
-/* ---------- ADMIN ---------- */
 .admin-panel {
   max-width: 1200px;
   margin: 0 auto;
@@ -1048,7 +1025,18 @@ textarea {
   flex-wrap: wrap;
 }
 
-/* ---------- RESPONSIVO ---------- */
+@media (max-width: 960px) {
+  .items-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .items-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
   .navbar {
     justify-content: space-between;
